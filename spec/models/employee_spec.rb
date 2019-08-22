@@ -68,5 +68,33 @@ RSpec.describe Employee, type: :model do
   end
 
   describe "Instance Variables" do
+    context "#full name method" do
+      
+      it "#fullname" do
+        employee = Employee.new(first_name:"Henry", last_name:"Neal", rewards_balance: 500)
+        result = employee.full_name
+        expect(result.include? "Henry").to be true
+        expect(result.include? "Neal").to be true
+      end 
+    end
+    context ".can_afford" do
+      employee = Employee.new(first_name:"Henry", last_name:"Neal", rewards_balance: 400)
+
+      it "should return true on reward_cost less than or equal to 400" do 
+        less_than = employee.can_afford?(321)
+        equal_to = employee.can_afford?(400)
+
+        expect(less_than).to be true
+        expect(equal_to).to be true
+      end
+
+      it "should return false on reward_cost greater than 400" do
+        greater_than = employee.can_afford?(432)
+
+        expect(greater_than).to equal false
+      end
+    end
+
+
   end
 end
